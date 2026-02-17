@@ -98,8 +98,14 @@
         /* --- CONFIGURAÇÕES DE IMPRESSÃO (PDF) --- */
         @media print {
             @page {
-                margin: 1.5cm;
+                margin: 1cm; /* Margens menores para aproveitar melhor a folha */
                 size: A4;
+            }
+
+            /* Utilitário para evitar quebra de página dentro de elementos */
+            .break-inside-avoid {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
 
             /* Reseta Cores para Fundo Branco e Texto Escuro */
@@ -115,6 +121,11 @@
                 display: none !important;
             }
 
+            /* Garante que elementos escondidos no desktop mas visiveis no mobile (como o avatar duplicado) não apareçam */
+            .lg\:hidden {
+                display: none !important;
+            }
+
             /* Ajusta Containers e Cards */
             .bg-dark-900, .bg-dark-800, .bg-dark-950, .bg-dark-900\/50, .bg-dark-900\/95 {
                 background-color: white !important;
@@ -126,7 +137,7 @@
                 color: #334155 !important; /* Slate 700 */
             }
             
-            /* Mantém a cor de destaque (Teal) legível, mas um pouco mais escura */
+            /* Mantém a cor de destaque (Teal) legível */
             .text-brand-accent {
                 color: #0f766e !important; /* Teal 700 */
                 font-weight: bold !important;
@@ -138,24 +149,26 @@
                 color: #0f172a !important;
             }
 
-            /* Bordas para separar conteúdo */
+            /* Bordas para separar conteúdo visualmente na impressão */
             .border-dark-700 {
-                border-color: #cbd5e1 !important; /* Slate 300 */
+                border-color: #94a3b8 !important; /* Slate 400 (Mais escuro para contraste) */
+                border-width: 1px !important;
+                border-style: solid !important;
             }
 
-            /* Ajustes de Layout */
+            /* Ajustes de Layout e Espaçamento */
             section {
-                padding-top: 1cm !important;
-                padding-bottom: 1cm !important;
-                page-break-inside: avoid; /* Tenta não quebrar seções ao meio */
+                padding-top: 0.5cm !important;
+                padding-bottom: 0.5cm !important;
+                page-break-inside: avoid;
             }
 
-            /* Força Quebra de Página antes de seções principais para organização */
+            /* Força Quebra de Página apenas se necessário, mas tenta evitar */
             #experiencia, #formacao {
-                page-break-before: always;
+                page-break-before: auto; /* Deixa o navegador decidir melhor */
             }
 
-            /* Remove sombras e glows */
+            /* Remove sombras */
             .shadow-lg, .shadow-2xl, .shadow-md {
                 box-shadow: none !important;
             }
@@ -163,7 +176,7 @@
             /* Ajuste Timeline */
             .timeline-line::before {
                 background: #cbd5e1 !important;
-                width: 1px !important;
+                width: 2px !important;
             }
             
             /* Avatar no print */
@@ -179,10 +192,19 @@
                 color: #0f172a !important;
             }
             
-            /* Mostra info de contato de forma clara */
+            /* Rodapé mais compacto */
             #contato {
                 page-break-before: auto;
                 border-top: 2px solid #e2e8f0 !important;
+                padding-top: 1cm !important;
+                padding-bottom: 0 !important;
+            }
+
+            /* Correção específica para o Card de Stack/Skills não quebrar */
+            #sobre .bg-gradient-to-br {
+                border: 1px solid #94a3b8 !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
         }
     </style>
@@ -228,7 +250,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden print:pt-10 print:pb-10">
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden print:pt-4 print:pb-4">
         <!-- Background Elements -->
         <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-accent/5 blur-3xl no-print"></div>
         <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-600/10 blur-3xl no-print"></div>
@@ -244,8 +266,8 @@
                     <!-- Container Flex para Mobile: Imagem + Título -->
                     <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 lg:block">
                         
-                        <!-- Avatar Mobile -->
-                        <div class="block lg:hidden relative w-32 h-32 flex-shrink-0 rounded-full border-2 border-brand-accent p-1 shadow-[0_0_20px_rgba(45,212,191,0.3)] image-pulse-animation">
+                        <!-- Avatar Mobile (COM CLASSE NO-PRINT PARA NÃO DUPLICAR NA IMPRESSÃO) -->
+                        <div class="block lg:hidden relative w-32 h-32 flex-shrink-0 rounded-full border-2 border-brand-accent p-1 shadow-[0_0_20px_rgba(45,212,191,0.3)] image-pulse-animation no-print">
                             <img src="carolina.jpg" alt="Carolina Soares" class="w-full h-full rounded-full object-cover">
                         </div>
 
@@ -271,12 +293,12 @@
                 </div>
                 
                 <!-- Avatar/Image Desktop -->
-                <div class="relative hidden lg:block print:block print:w-64 print:h-64 print:mx-auto">
+                <div class="relative hidden lg:block print:block print:w-48 print:h-48 print:mx-auto">
                     <!-- Glow de fundo (no-print para economizar tinta) -->
                     <div class="absolute inset-0 bg-gradient-to-tr from-brand-accent to-blue-600 rounded-full blur-2xl opacity-10 transform scale-90 translate-y-4 no-print"></div>
                     
                     <!-- Container da Imagem com Borda Animada -->
-                    <div class="relative w-96 h-96 mx-auto rounded-full border-4 border-dark-800 bg-dark-800 overflow-hidden shadow-2xl flex items-center justify-center group image-pulse-animation transition-all print:border-slate-300 print:w-64 print:h-64">
+                    <div class="relative w-96 h-96 mx-auto rounded-full border-4 border-dark-800 bg-dark-800 overflow-hidden shadow-2xl flex items-center justify-center group image-pulse-animation transition-all print:border-slate-300 print:w-48 print:h-48">
                         <!-- Placeholder por baixo -->
                         <div class="text-center p-8 absolute z-0">
                              <div class="w-full h-full bg-dark-800 flex items-center justify-center text-slate-600">
@@ -292,28 +314,28 @@
     </section>
 
     <!-- Sobre e Habilidades -->
-    <section id="sobre" class="py-20 bg-dark-900 relative print:bg-white print:py-10">
+    <section id="sobre" class="py-20 bg-dark-900 relative print:bg-white print:py-4">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 print:gap-8">
                 <!-- Coluna Sobre -->
                 <div class="lg:col-span-2 space-y-6">
                     <h2 class="text-3xl font-display font-bold text-white">Sobre Mim</h2>
                     <div class="w-20 h-1 bg-brand-accent rounded-full no-print"></div>
                     
-                    <p class="text-slate-400 leading-relaxed text-lg print:text-justify">
+                    <p class="text-slate-400 leading-relaxed text-lg print:text-justify print:text-base">
                         Olá, meu nome é <strong class="text-white">Carolina Steffany Soares</strong>. Minha trajetória profissional é marcada pela versatilidade: combino a precisão técnica do hardware com a visão analítica de processos administrativos.
                     </p>
-                    <p class="text-slate-400 leading-relaxed text-lg print:text-justify">
+                    <p class="text-slate-400 leading-relaxed text-lg print:text-justify print:text-base">
                         Destaco-me pela <strong>facilidade em aprender novas funções</strong> rapidamente e pela <strong>comunicação clara</strong> com lideranças e colegas. Tenho um forte compromisso com a organização, ética e manutenção da ordem nos ambientes de trabalho, garantindo que a tecnologia sirva como facilitadora de resultados.
                     </p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 print:block print:space-y-4">
-                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all print:border-slate-200 print:mb-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 print:grid print:grid-cols-2 print:gap-4 print:mt-4">
+                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all print:border-slate-400 print:p-4 break-inside-avoid">
                             <i class="fas fa-check-circle text-brand-accent text-xl mb-3 print:text-teal-700"></i>
                             <h3 class="font-bold text-white print:text-slate-800">Resolução de Problemas</h3>
                             <p class="text-sm text-slate-400 mt-2">Diagnóstico assertivo e implementação de soluções em hardware e processos.</p>
                         </div>
-                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all print:border-slate-200">
+                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all print:border-slate-400 print:p-4 break-inside-avoid">
                             <i class="fas fa-user-shield text-brand-accent text-xl mb-3 print:text-teal-700"></i>
                             <h3 class="font-bold text-white print:text-slate-800">Ética & Discrição</h3>
                             <p class="text-sm text-slate-400 mt-2">Conduta profissional exemplar com foco em segurança e confidencialidade.</p>
@@ -322,49 +344,49 @@
                 </div>
 
                 <!-- Coluna Stack & Ferramentas -->
-                <div class="bg-gradient-to-br from-dark-800 to-dark-900 p-8 rounded-2xl border border-dark-700 text-white shadow-xl relative overflow-hidden flex flex-col justify-center print:bg-white print:border-none print:shadow-none print:p-0">
+                <div class="bg-gradient-to-br from-dark-800 to-dark-900 p-8 rounded-2xl border border-dark-700 text-white shadow-xl relative overflow-hidden flex flex-col justify-center print:bg-white print:border-slate-400 print:shadow-none print:p-4 break-inside-avoid">
                     
-                    <h3 class="text-2xl font-display font-bold mb-8 relative z-10 flex items-center print:text-slate-800">
+                    <h3 class="text-2xl font-display font-bold mb-8 relative z-10 flex items-center print:text-slate-800 print:mb-4">
                         <i class="fas fa-layer-group text-brand-accent mr-3 print:text-teal-700"></i>
                         Stack & Ferramentas
                     </h3>
                     
-                    <div class="grid grid-cols-2 gap-4 relative z-10">
+                    <div class="grid grid-cols-2 gap-4 relative z-10 print:gap-4">
                         <!-- Card 1 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-400 print:bg-white break-inside-avoid">
                             <i class="fas fa-microchip text-3xl text-slate-500 group-hover:text-brand-accent mb-3 transition-colors print:text-slate-600"></i>
                             <h4 class="font-bold text-white text-sm print:text-slate-800">Hardware</h4>
                             <p class="text-xs text-slate-500 mt-1">Setup Gamer & Reparo</p>
                         </div>
 
                         <!-- Card 2 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-400 print:bg-white break-inside-avoid">
                             <i class="fab fa-windows text-3xl text-slate-500 group-hover:text-blue-400 mb-3 transition-colors print:text-slate-600"></i>
                             <h4 class="font-bold text-white text-sm print:text-slate-800">Sistemas</h4>
                             <p class="text-xs text-slate-500 mt-1">Config & Otimização</p>
                         </div>
 
                         <!-- Card 3 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-400 print:bg-white break-inside-avoid">
                             <i class="fas fa-file-excel text-3xl text-slate-500 group-hover:text-green-500 mb-3 transition-colors print:text-slate-600"></i>
                             <h4 class="font-bold text-white text-sm print:text-slate-800">Office/Excel</h4>
                             <p class="text-xs text-slate-500 mt-1">Dados & Relatórios</p>
                         </div>
 
                         <!-- Card 4 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-400 print:bg-white break-inside-avoid">
                             <i class="fas fa-headset text-3xl text-slate-500 group-hover:text-brand-accent mb-3 transition-colors print:text-slate-600"></i>
                             <h4 class="font-bold text-white text-sm print:text-slate-800">Helpdesk</h4>
                             <p class="text-xs text-slate-500 mt-1">SLA & Atendimento</p>
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-dark-700 print:border-slate-300">
-                        <h4 class="text-sm font-bold uppercase text-slate-500 mb-4 tracking-wider">Soft Skills</h4>
+                    <div class="mt-8 pt-6 border-t border-dark-700 print:border-slate-400 print:mt-4 print:pt-4">
+                        <h4 class="text-sm font-bold uppercase text-slate-500 mb-4 tracking-wider print:mb-2">Soft Skills</h4>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-300 print:text-slate-700">Comunicação Clara</span>
-                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-300 print:text-slate-700">Empatia</span>
-                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-300 print:text-slate-700">Trabalho em Equipe</span>
+                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-400 print:text-slate-700">Comunicação Clara</span>
+                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-400 print:text-slate-700">Empatia</span>
+                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-400 print:text-slate-700">Trabalho em Equipe</span>
                         </div>
                     </div>
                 </div>
@@ -373,9 +395,9 @@
     </section>
 
     <!-- Experiência -->
-    <section id="experiencia" class="py-20 bg-dark-900/50 print:bg-white print:py-10">
+    <section id="experiencia" class="py-20 bg-dark-900/50 print:bg-white print:py-4">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 print:mb-8">
+            <div class="text-center mb-16 print:mb-6">
                 <h2 class="text-3xl font-display font-bold text-white print:text-slate-800">Trajetória Profissional</h2>
                 <div class="w-20 h-1 bg-brand-accent mx-auto mt-4 rounded-full no-print"></div>
             </div>
@@ -383,16 +405,16 @@
             <div class="relative space-y-8 timeline-line pl-8 md:pl-0">
                 
                 <!-- Job 1 -->
-                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-4 break-inside-avoid">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-1">
                         <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Mai 2024 - Ago 2024</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-400">Joinville</span>
                     </div>
                     <!-- Timeline Dot -->
                     <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 group-hover:scale-125 transition-transform no-print"></div>
                     
                     <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-brand-accent/50 transition-all relative print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-brand-accent/50 transition-all relative print:bg-white print:border-slate-400 print:shadow-none print:p-4">
                             <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Mai 2024 - Ago 2024 • Pichau</div>
                             <h3 class="text-xl font-bold text-white print:text-slate-800">Auxiliar de Analista de Sistema</h3>
                             <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Pichau Informática</h4>
@@ -416,15 +438,15 @@
                 </div>
 
                 <!-- Job 2 -->
-                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-4 break-inside-avoid">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-1">
                         <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Ago 2023 - Mai 2024</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-400">Joinville</span>
                     </div>
                     <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors no-print"></div>
                     
                     <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-400 print:shadow-none print:p-4">
                             <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Ago 2023 - Mai 2024 • Pichau</div>
                             <h3 class="text-xl font-bold text-white print:text-slate-800">Técnica em Manutenção de Hardware</h3>
                             <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Pichau Informática</h4>
@@ -448,15 +470,15 @@
                 </div>
 
                 <!-- Job 3 -->
-                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-4 break-inside-avoid">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-1">
                         <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Jun 2023 - Ago 2023</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-400">Joinville</span>
                     </div>
                     <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors no-print"></div>
                     
                     <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-400 print:shadow-none print:p-4">
                              <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Jun 2023 - Ago 2023 • Pichau</div>
                             <h3 class="text-xl font-bold text-white print:text-slate-800">Técnica de Apoio ao Usuário (Helpdesk)</h3>
                             <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Pichau Informática</h4>
@@ -466,15 +488,15 @@
                 </div>
 
                  <!-- Job 4 -->
-                 <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                 <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-4 break-inside-avoid">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-1">
                         <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Jun 2022 - Fev 2023</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-400">Joinville</span>
                     </div>
                     <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors no-print"></div>
                     
                     <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-400 print:shadow-none print:p-4">
                              <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Jun 2022 - Fev 2023 • Youcom</div>
                             <h3 class="text-xl font-bold text-white print:text-slate-800">Consultora de Vendas</h3>
                             <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Youcom</h4>
@@ -488,13 +510,13 @@
     </section>
 
     <!-- Formação Acadêmica -->
-    <section id="formacao" class="py-20 bg-dark-900 border-t border-dark-700 print:bg-white print:py-10 print:border-t-0">
+    <section id="formacao" class="py-20 bg-dark-900 border-t border-dark-700 print:bg-white print:py-4 print:border-t-0">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-display font-bold text-white mb-12 text-center print:text-slate-800 print:mb-6">Formação Acadêmica</h2>
+            <h2 class="text-3xl font-display font-bold text-white mb-12 text-center print:text-slate-800 print:mb-4">Formação Acadêmica</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:block print:space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:block print:space-y-4">
                 <!-- Card 1 -->
-                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group print:bg-white print:border-slate-400 print:shadow-none print:p-4 break-inside-avoid">
                     <div class="flex items-start justify-between">
                         <div>
                             <div class="bg-blue-900/30 text-blue-400 border border-blue-900/50 font-bold text-xs px-2 py-1 rounded uppercase mb-3 inline-block print:bg-blue-50 print:text-blue-700 print:border-blue-200">Engenharia</div>
@@ -508,7 +530,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group print:bg-white print:border-slate-400 print:shadow-none print:p-4 break-inside-avoid">
                     <div class="flex items-start justify-between">
                         <div>
                             <div class="bg-teal-900/30 text-teal-400 border border-teal-900/50 font-bold text-xs px-2 py-1 rounded uppercase mb-3 inline-block print:bg-teal-50 print:text-teal-700 print:border-teal-200">Tecnologia</div>
@@ -525,38 +547,39 @@
     </section>
 
     <!-- Footer / Contato -->
-    <footer id="contato" class="bg-dark-950 text-slate-300 py-16 border-t border-dark-700 print:bg-white print:text-black print:border-none print:py-8">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-display font-bold text-white mb-6 print:text-slate-800">Vamos Conversar?</h2>
-            <p class="text-lg text-slate-400 mb-10 print:text-slate-600">Estou disponível para entrevistas e novas oportunidades na área de TI e Administrativa.</p>
+    <footer id="contato" class="bg-dark-950 text-slate-300 py-16 border-t border-dark-700 print:bg-white print:text-black print:border-none print:py-4 break-inside-avoid">
+        <div class="max-w-4xl mx-auto px-4 text-center print:text-left print:flex print:items-center print:justify-between">
+            <div class="hidden print:block">
+                 <h2 class="text-2xl font-display font-bold text-slate-800">Carolina Soares</h2>
+            </div>
             
-            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12 print:flex-col print:gap-4">
-                <a href="mailto:carolinasteffn98@gmail.com" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent print:bg-white print:border-slate-300 print:text-black print:justify-start">
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12 print:flex-col print:gap-2 print:mb-0">
+                <a href="mailto:carolinasteffn98@gmail.com" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent print:bg-white print:border-none print:text-black print:justify-start print:p-0">
                     <i class="fas fa-envelope text-brand-accent print:text-teal-700"></i>
                     <div class="text-left">
-                        <span class="block text-xs text-slate-400 print:text-slate-500">Email</span>
-                        <span class="font-bold">carolinasteffn98@gmail.com</span>
+                        <span class="block text-xs text-slate-400 print:hidden">Email</span>
+                        <span class="font-bold print:font-normal print:text-sm">carolinasteffn98@gmail.com</span>
                     </div>
                 </a>
                 
-                <a href="https://wa.me/5547997786959" target="_blank" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent print:bg-white print:border-slate-300 print:text-black print:justify-start">
+                <a href="https://wa.me/5547997786959" target="_blank" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent print:bg-white print:border-none print:text-black print:justify-start print:p-0">
                     <i class="fas fa-phone text-brand-accent print:text-teal-700"></i>
                     <div class="text-left">
-                        <span class="block text-xs text-slate-400 print:text-slate-500">Telefone / WhatsApp</span>
-                        <span class="font-bold">(47) 99778-6959</span>
+                        <span class="block text-xs text-slate-400 print:hidden">Telefone / WhatsApp</span>
+                        <span class="font-bold print:font-normal print:text-sm">(47) 99778-6959</span>
                     </div>
                 </a>
                 
-                <div class="flex items-center justify-center gap-3 bg-dark-800 text-white px-6 py-4 rounded-xl border border-dark-700 cursor-default print:bg-white print:border-slate-300 print:text-black print:justify-start">
+                <div class="flex items-center justify-center gap-3 bg-dark-800 text-white px-6 py-4 rounded-xl border border-dark-700 cursor-default print:bg-white print:border-none print:text-black print:justify-start print:p-0">
                     <i class="fas fa-map-marker-alt text-brand-accent print:text-teal-700"></i>
                     <div class="text-left">
-                        <span class="block text-xs text-slate-400 print:text-slate-500">Localização</span>
-                        <span class="font-bold">Joinville, SC</span>
+                        <span class="block text-xs text-slate-400 print:hidden">Localização</span>
+                        <span class="font-bold print:font-normal print:text-sm">Joinville, SC</span>
                     </div>
                 </div>
             </div>
 
-            <div class="border-t border-dark-700 pt-8 flex flex-col justify-center items-center gap-4 print:border-slate-300">
+            <div class="border-t border-dark-700 pt-8 flex flex-col justify-center items-center gap-4 print:hidden">
                 <p class="text-sm text-slate-500">© 2026 Carolina Steffany Soares. Todos os direitos reservados.</p>
             </div>
         </div>
