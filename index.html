@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carolina Steffany Soares | Portfólio Profissional</title>
-    <meta name="description" content="Portfólio de Carolina Steffany Soares - Especialista em Suporte Técnico, Hardware e Análise de Sistemas.">
     <link rel="icon" href="carolina.jpg" type="image/jpeg">
+    <meta name="description" content="Portfólio de Carolina Steffany Soares - Especialista em Suporte Técnico, Hardware e Análise de Sistemas.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -94,12 +94,103 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #475569;
         }
+
+        /* --- CONFIGURAÇÕES DE IMPRESSÃO (PDF) --- */
+        @media print {
+            @page {
+                margin: 1.5cm;
+                size: A4;
+            }
+
+            /* Reseta Cores para Fundo Branco e Texto Escuro */
+            body {
+                background-color: white !important;
+                color: #1a202c !important; /* Slate 900 */
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Remove Elementos de Navegação e Botões */
+            nav, .no-print, .image-pulse-animation::before, .image-pulse-animation::after {
+                display: none !important;
+            }
+
+            /* Ajusta Containers e Cards */
+            .bg-dark-900, .bg-dark-800, .bg-dark-950, .bg-dark-900\/50, .bg-dark-900\/95 {
+                background-color: white !important;
+                border: none !important;
+            }
+            
+            /* Ajusta Textos Claros para Escuros */
+            .text-white, .text-slate-300, .text-slate-400 {
+                color: #334155 !important; /* Slate 700 */
+            }
+            
+            /* Mantém a cor de destaque (Teal) legível, mas um pouco mais escura */
+            .text-brand-accent {
+                color: #0f766e !important; /* Teal 700 */
+                font-weight: bold !important;
+            }
+            
+            .gradient-text {
+                background: none !important;
+                -webkit-text-fill-color: #0f172a !important; /* Cor sólida para título */
+                color: #0f172a !important;
+            }
+
+            /* Bordas para separar conteúdo */
+            .border-dark-700 {
+                border-color: #cbd5e1 !important; /* Slate 300 */
+            }
+
+            /* Ajustes de Layout */
+            section {
+                padding-top: 1cm !important;
+                padding-bottom: 1cm !important;
+                page-break-inside: avoid; /* Tenta não quebrar seções ao meio */
+            }
+
+            /* Força Quebra de Página antes de seções principais para organização */
+            #experiencia, #formacao {
+                page-break-before: always;
+            }
+
+            /* Remove sombras e glows */
+            .shadow-lg, .shadow-2xl, .shadow-md {
+                box-shadow: none !important;
+            }
+
+            /* Ajuste Timeline */
+            .timeline-line::before {
+                background: #cbd5e1 !important;
+                width: 1px !important;
+            }
+            
+            /* Avatar no print */
+            .image-pulse-animation {
+                animation: none !important;
+                box-shadow: none !important;
+                border-color: #cbd5e1 !important;
+            }
+            
+            /* Links */
+            a {
+                text-decoration: none !important;
+                color: #0f172a !important;
+            }
+            
+            /* Mostra info de contato de forma clara */
+            #contato {
+                page-break-before: auto;
+                border-top: 2px solid #e2e8f0 !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-dark-900 text-slate-300 antialiased selection:bg-brand-accent selection:text-dark-900">
 
     <!-- Navbar Fixa -->
-    <nav class="fixed w-full z-50 bg-dark-900/95 backdrop-blur-md border-b border-dark-700 transition-all duration-300 shadow-lg">
+    <nav class="fixed w-full z-50 bg-dark-900/95 backdrop-blur-md border-b border-dark-700 transition-all duration-300 shadow-lg no-print">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo Texto -->
@@ -137,15 +228,15 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden print:pt-10 print:pb-10">
         <!-- Background Elements -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-accent/5 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-600/10 blur-3xl"></div>
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-accent/5 blur-3xl no-print"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-600/10 blur-3xl no-print"></div>
         
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8">
-                    <div class="inline-flex items-center px-3 py-1 rounded-full border border-dark-700 bg-dark-800/50 backdrop-blur-sm">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full border border-dark-700 bg-dark-800/50 backdrop-blur-sm no-print">
                         <span class="w-2 h-2 rounded-full bg-brand-accent mr-2 animate-pulse"></span>
                         <span class="text-brand-accent text-xs font-bold uppercase tracking-wide">Disponível para novas oportunidades</span>
                     </div>
@@ -153,47 +244,47 @@
                     <!-- Container Flex para Mobile: Imagem + Título -->
                     <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 lg:block">
                         
-                        <!-- Avatar Mobile (Só aparece em telas menores que lg) -->
+                        <!-- Avatar Mobile -->
                         <div class="block lg:hidden relative w-32 h-32 flex-shrink-0 rounded-full border-2 border-brand-accent p-1 shadow-[0_0_20px_rgba(45,212,191,0.3)] image-pulse-animation">
                             <img src="carolina.jpg" alt="Carolina Soares" class="w-full h-full rounded-full object-cover">
                         </div>
 
                         <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-white leading-tight text-center sm:text-left">
-                            Olá, eu me chamo <br>
-                            <span class="gradient-text">Carolina Soares!</span>
+                            Olá, eu sou <br class="no-print">
+                            <span class="gradient-text">Carolina Soares</span>
                         </h1>
                     </div>
                     
-                    <p class="text-lg text-slate-400 max-w-lg leading-relaxed text-center sm:text-left">
+                    <p class="text-lg text-slate-400 max-w-lg leading-relaxed text-center sm:text-left print:text-justify">
                         Profissional versátil com experiência sólida em <strong>Suporte Técnico</strong>, <strong>Hardware Gamer</strong> e <strong>Análise de Sistemas</strong>. Transformo problemas técnicos complexos em soluções eficientes.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center sm:justify-start">
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center sm:justify-start no-print">
                         <a href="#contato" class="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-bold rounded-xl text-dark-900 bg-brand-accent hover:bg-brand-accentHover transition-all transform hover:-translate-y-1 shadow-lg shadow-teal-500/20">
                             Falar Comigo
                             <i class="fas fa-arrow-right ml-2"></i>
                         </a>
-                        <a href="#experiencia" class="inline-flex justify-center items-center px-8 py-4 border border-dark-700 text-base font-medium rounded-xl text-white hover:bg-dark-800 transition-all">
-                            Ver Experiência
-                        </a>
+                        <button onclick="window.print()" class="inline-flex justify-center items-center px-8 py-4 border border-dark-700 text-base font-medium rounded-xl text-white hover:bg-dark-800 transition-all">
+                            <i class="fas fa-print mr-2"></i> Salvar PDF / Imprimir
+                        </button>
                     </div>
                 </div>
                 
-                <!-- Avatar/Image Desktop (Permanece igual) -->
-                <div class="relative hidden lg:block">
-                    <!-- Glow de fundo -->
-                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-accent to-blue-600 rounded-full blur-2xl opacity-10 transform scale-90 translate-y-4"></div>
+                <!-- Avatar/Image Desktop -->
+                <div class="relative hidden lg:block print:block print:w-64 print:h-64 print:mx-auto">
+                    <!-- Glow de fundo (no-print para economizar tinta) -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-accent to-blue-600 rounded-full blur-2xl opacity-10 transform scale-90 translate-y-4 no-print"></div>
                     
                     <!-- Container da Imagem com Borda Animada -->
-                    <div class="relative w-96 h-96 mx-auto rounded-full border-4 border-dark-800 bg-dark-800 overflow-hidden shadow-2xl flex items-center justify-center group image-pulse-animation transition-all">
-                        <!-- Placeholder por baixo (caso a imagem não carregue) -->
+                    <div class="relative w-96 h-96 mx-auto rounded-full border-4 border-dark-800 bg-dark-800 overflow-hidden shadow-2xl flex items-center justify-center group image-pulse-animation transition-all print:border-slate-300 print:w-64 print:h-64">
+                        <!-- Placeholder por baixo -->
                         <div class="text-center p-8 absolute z-0">
                              <div class="w-full h-full bg-dark-800 flex items-center justify-center text-slate-600">
                                 <i class="fas fa-user text-6xl"></i>
                             </div>
                         </div>
                         <!-- Imagem Principal -->
-                        <img src="carolina.jpg" alt="Carolina Soares" class="relative z-10 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img src="carolina.jpg" alt="Carolina Soares" class="relative z-10 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 print:group-hover:scale-100">
                     </div>
                 </div>
             </div>
@@ -201,79 +292,79 @@
     </section>
 
     <!-- Sobre e Habilidades -->
-    <section id="sobre" class="py-20 bg-dark-900 relative">
+    <section id="sobre" class="py-20 bg-dark-900 relative print:bg-white print:py-10">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 <!-- Coluna Sobre -->
                 <div class="lg:col-span-2 space-y-6">
                     <h2 class="text-3xl font-display font-bold text-white">Sobre Mim</h2>
-                    <div class="w-20 h-1 bg-brand-accent rounded-full"></div>
+                    <div class="w-20 h-1 bg-brand-accent rounded-full no-print"></div>
                     
-                    <p class="text-slate-400 leading-relaxed text-lg">
+                    <p class="text-slate-400 leading-relaxed text-lg print:text-justify">
                         Olá, meu nome é <strong class="text-white">Carolina Steffany Soares</strong>. Minha trajetória profissional é marcada pela versatilidade: combino a precisão técnica do hardware com a visão analítica de processos administrativos.
                     </p>
-                    <p class="text-slate-400 leading-relaxed text-lg">
+                    <p class="text-slate-400 leading-relaxed text-lg print:text-justify">
                         Destaco-me pela <strong>facilidade em aprender novas funções</strong> rapidamente e pela <strong>comunicação clara</strong> com lideranças e colegas. Tenho um forte compromisso com a organização, ética e manutenção da ordem nos ambientes de trabalho, garantindo que a tecnologia sirva como facilitadora de resultados.
                     </p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all">
-                            <i class="fas fa-check-circle text-brand-accent text-xl mb-3"></i>
-                            <h3 class="font-bold text-white">Resolução de Problemas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 print:block print:space-y-4">
+                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all print:border-slate-200 print:mb-4">
+                            <i class="fas fa-check-circle text-brand-accent text-xl mb-3 print:text-teal-700"></i>
+                            <h3 class="font-bold text-white print:text-slate-800">Resolução de Problemas</h3>
                             <p class="text-sm text-slate-400 mt-2">Diagnóstico assertivo e implementação de soluções em hardware e processos.</p>
                         </div>
-                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all">
-                            <i class="fas fa-user-shield text-brand-accent text-xl mb-3"></i>
-                            <h3 class="font-bold text-white">Ética & Discrição</h3>
+                        <div class="bg-dark-800 p-6 rounded-xl border border-dark-700 shadow-sm hover:border-brand-accent/30 transition-all print:border-slate-200">
+                            <i class="fas fa-user-shield text-brand-accent text-xl mb-3 print:text-teal-700"></i>
+                            <h3 class="font-bold text-white print:text-slate-800">Ética & Discrição</h3>
                             <p class="text-sm text-slate-400 mt-2">Conduta profissional exemplar com foco em segurança e confidencialidade.</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Coluna Stack & Ferramentas -->
-                <div class="bg-gradient-to-br from-dark-800 to-dark-900 p-8 rounded-2xl border border-dark-700 text-white shadow-xl relative overflow-hidden flex flex-col justify-center">
+                <div class="bg-gradient-to-br from-dark-800 to-dark-900 p-8 rounded-2xl border border-dark-700 text-white shadow-xl relative overflow-hidden flex flex-col justify-center print:bg-white print:border-none print:shadow-none print:p-0">
                     
-                    <h3 class="text-2xl font-display font-bold mb-8 relative z-10 flex items-center">
-                        <i class="fas fa-layer-group text-brand-accent mr-3"></i>
+                    <h3 class="text-2xl font-display font-bold mb-8 relative z-10 flex items-center print:text-slate-800">
+                        <i class="fas fa-layer-group text-brand-accent mr-3 print:text-teal-700"></i>
                         Stack & Ferramentas
                     </h3>
                     
                     <div class="grid grid-cols-2 gap-4 relative z-10">
                         <!-- Card 1 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center">
-                            <i class="fas fa-microchip text-3xl text-slate-500 group-hover:text-brand-accent mb-3 transition-colors"></i>
-                            <h4 class="font-bold text-white text-sm">Hardware</h4>
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                            <i class="fas fa-microchip text-3xl text-slate-500 group-hover:text-brand-accent mb-3 transition-colors print:text-slate-600"></i>
+                            <h4 class="font-bold text-white text-sm print:text-slate-800">Hardware</h4>
                             <p class="text-xs text-slate-500 mt-1">Setup Gamer & Reparo</p>
                         </div>
 
                         <!-- Card 2 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center">
-                            <i class="fab fa-windows text-3xl text-slate-500 group-hover:text-blue-400 mb-3 transition-colors"></i>
-                            <h4 class="font-bold text-white text-sm">Sistemas</h4>
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                            <i class="fab fa-windows text-3xl text-slate-500 group-hover:text-blue-400 mb-3 transition-colors print:text-slate-600"></i>
+                            <h4 class="font-bold text-white text-sm print:text-slate-800">Sistemas</h4>
                             <p class="text-xs text-slate-500 mt-1">Config & Otimização</p>
                         </div>
 
                         <!-- Card 3 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center">
-                            <i class="fas fa-file-excel text-3xl text-slate-500 group-hover:text-green-500 mb-3 transition-colors"></i>
-                            <h4 class="font-bold text-white text-sm">Office/Excel</h4>
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                            <i class="fas fa-file-excel text-3xl text-slate-500 group-hover:text-green-500 mb-3 transition-colors print:text-slate-600"></i>
+                            <h4 class="font-bold text-white text-sm print:text-slate-800">Office/Excel</h4>
                             <p class="text-xs text-slate-500 mt-1">Dados & Relatórios</p>
                         </div>
 
                         <!-- Card 4 -->
-                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center">
-                            <i class="fas fa-headset text-3xl text-slate-500 group-hover:text-brand-accent mb-3 transition-colors"></i>
-                            <h4 class="font-bold text-white text-sm">Helpdesk</h4>
+                        <div class="bg-dark-900 p-4 rounded-xl border border-dark-700 hover:border-brand-accent/50 transition-all group flex flex-col items-center text-center print:border-slate-300 print:bg-white">
+                            <i class="fas fa-headset text-3xl text-slate-500 group-hover:text-brand-accent mb-3 transition-colors print:text-slate-600"></i>
+                            <h4 class="font-bold text-white text-sm print:text-slate-800">Helpdesk</h4>
                             <p class="text-xs text-slate-500 mt-1">SLA & Atendimento</p>
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-6 border-t border-dark-700">
+                    <div class="mt-8 pt-6 border-t border-dark-700 print:border-slate-300">
                         <h4 class="text-sm font-bold uppercase text-slate-500 mb-4 tracking-wider">Soft Skills</h4>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors">Comunicação Clara</span>
-                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors">Empatia</span>
-                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors">Trabalho em Equipe</span>
+                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-300 print:text-slate-700">Comunicação Clara</span>
+                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-300 print:text-slate-700">Empatia</span>
+                            <span class="px-3 py-1 bg-dark-900 border border-dark-700 rounded-full text-xs text-slate-300 font-medium hover:border-brand-accent transition-colors print:bg-white print:border-slate-300 print:text-slate-700">Trabalho em Equipe</span>
                         </div>
                     </div>
                 </div>
@@ -282,41 +373,41 @@
     </section>
 
     <!-- Experiência -->
-    <section id="experiencia" class="py-20 bg-dark-900/50">
+    <section id="experiencia" class="py-20 bg-dark-900/50 print:bg-white print:py-10">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-display font-bold text-white">Trajetória Profissional</h2>
-                <div class="w-20 h-1 bg-brand-accent mx-auto mt-4 rounded-full"></div>
+            <div class="text-center mb-16 print:mb-8">
+                <h2 class="text-3xl font-display font-bold text-white print:text-slate-800">Trajetória Profissional</h2>
+                <div class="w-20 h-1 bg-brand-accent mx-auto mt-4 rounded-full no-print"></div>
             </div>
 
             <div class="relative space-y-8 timeline-line pl-8 md:pl-0">
                 
                 <!-- Job 1 -->
-                <div class="relative md:grid md:grid-cols-5 md:gap-8 group">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2">
-                        <span class="text-sm font-bold text-slate-400 block">Mai 2024 - Ago 2024</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded">Joinville</span>
+                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                        <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Mai 2024 - Ago 2024</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
                     </div>
                     <!-- Timeline Dot -->
-                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 group-hover:scale-125 transition-transform"></div>
+                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 group-hover:scale-125 transition-transform no-print"></div>
                     
-                    <div class="md:col-span-4 pl-6 md:pl-8">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-brand-accent/50 transition-all relative">
-                            <div class="md:hidden mb-2 text-sm text-brand-accent font-bold">Mai 2024 - Ago 2024 • Pichau</div>
-                            <h3 class="text-xl font-bold text-white">Auxiliar de Analista de Sistema</h3>
-                            <h4 class="text-brand-accent font-medium mb-4">Pichau Informática</h4>
+                    <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-brand-accent/50 transition-all relative print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                            <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Mai 2024 - Ago 2024 • Pichau</div>
+                            <h3 class="text-xl font-bold text-white print:text-slate-800">Auxiliar de Analista de Sistema</h3>
+                            <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Pichau Informática</h4>
                             
-                            <ul class="space-y-3 text-slate-400 list-none">
+                            <ul class="space-y-3 text-slate-400 list-none print:text-slate-700">
                                 <li class="flex items-start">
-                                    <i class="fas fa-caret-right text-brand-accent mt-1.5 mr-3"></i>
+                                    <i class="fas fa-caret-right text-brand-accent mt-1.5 mr-3 print:text-teal-700"></i>
                                     <span>Suporte direto à análise de sistemas, gerando relatórios gerenciais e mantendo a integridade de dados em planilhas complexas.</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <i class="fas fa-caret-right text-brand-accent mt-1.5 mr-3"></i>
+                                    <i class="fas fa-caret-right text-brand-accent mt-1.5 mr-3 print:text-teal-700"></i>
                                     <span>Organização documental estratégica para otimizar o fluxo de informações e facilitar auditorias internas.</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <i class="fas fa-caret-right text-brand-accent mt-1.5 mr-3"></i>
+                                    <i class="fas fa-caret-right text-brand-accent mt-1.5 mr-3 print:text-teal-700"></i>
                                     <span>Gestão de conteúdo e-commerce (backend): atualização de precificação, cadastro técnico e ajustes de layout.</span>
                                 </li>
                             </ul>
@@ -325,30 +416,30 @@
                 </div>
 
                 <!-- Job 2 -->
-                <div class="relative md:grid md:grid-cols-5 md:gap-8 group">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2">
-                        <span class="text-sm font-bold text-slate-400 block">Ago 2023 - Mai 2024</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded">Joinville</span>
+                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                        <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Ago 2023 - Mai 2024</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
                     </div>
-                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors"></div>
+                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors no-print"></div>
                     
-                    <div class="md:col-span-4 pl-6 md:pl-8">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all">
-                            <div class="md:hidden mb-2 text-sm text-brand-accent font-bold">Ago 2023 - Mai 2024 • Pichau</div>
-                            <h3 class="text-xl font-bold text-white">Técnica em Manutenção de Hardware</h3>
-                            <h4 class="text-brand-accent font-medium mb-4">Pichau Informática</h4>
+                    <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                            <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Ago 2023 - Mai 2024 • Pichau</div>
+                            <h3 class="text-xl font-bold text-white print:text-slate-800">Técnica em Manutenção de Hardware</h3>
+                            <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Pichau Informática</h4>
                             
-                            <ul class="space-y-3 text-slate-400 list-none">
+                            <ul class="space-y-3 text-slate-400 list-none print:text-slate-700">
                                 <li class="flex items-start">
-                                    <i class="fas fa-microchip text-slate-500 mt-1 mr-3 text-xs"></i>
+                                    <i class="fas fa-microchip text-slate-500 mt-1 mr-3 text-xs print:text-slate-500"></i>
                                     <span>Montagem completa de computadores High-End, incluindo cable management, atualização de BIOS e drivers.</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <i class="fas fa-search text-slate-500 mt-1 mr-3 text-xs"></i>
+                                    <i class="fas fa-search text-slate-500 mt-1 mr-3 text-xs print:text-slate-500"></i>
                                     <span>Diagnóstico avançado de falhas em hardware e execução de testes de desempenho/estresse.</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <i class="fas fa-headset text-slate-500 mt-1 mr-3 text-xs"></i>
+                                    <i class="fas fa-headset text-slate-500 mt-1 mr-3 text-xs print:text-slate-500"></i>
                                     <span>Suporte técnico híbrido (presencial e remoto) com foco na resolução imediata de problemas do cliente.</span>
                                 </li>
                             </ul>
@@ -357,37 +448,37 @@
                 </div>
 
                 <!-- Job 3 -->
-                <div class="relative md:grid md:grid-cols-5 md:gap-8 group">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2">
-                        <span class="text-sm font-bold text-slate-400 block">Jun 2023 - Ago 2023</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded">Joinville</span>
+                <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                        <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Jun 2023 - Ago 2023</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
                     </div>
-                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors"></div>
+                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors no-print"></div>
                     
-                    <div class="md:col-span-4 pl-6 md:pl-8">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all">
-                             <div class="md:hidden mb-2 text-sm text-brand-accent font-bold">Jun 2023 - Ago 2023 • Pichau</div>
-                            <h3 class="text-xl font-bold text-white">Técnica de Apoio ao Usuário (Helpdesk)</h3>
-                            <h4 class="text-brand-accent font-medium mb-4">Pichau Informática</h4>
-                            <p class="text-slate-400 mb-2">Atendimento especializado N1 (Helpdesk) com triagem de chamados, suporte a dúvidas técnicas de produtos e acompanhamento de status de pedidos (SLA).</p>
+                    <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                             <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Jun 2023 - Ago 2023 • Pichau</div>
+                            <h3 class="text-xl font-bold text-white print:text-slate-800">Técnica de Apoio ao Usuário (Helpdesk)</h3>
+                            <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Pichau Informática</h4>
+                            <p class="text-slate-400 mb-2 print:text-slate-700">Atendimento especializado N1 (Helpdesk) com triagem de chamados, suporte a dúvidas técnicas de produtos e acompanhamento de status de pedidos (SLA).</p>
                         </div>
                     </div>
                 </div>
 
                  <!-- Job 4 -->
-                 <div class="relative md:grid md:grid-cols-5 md:gap-8 group">
-                    <div class="md:col-span-1 hidden md:block text-right pt-2">
-                        <span class="text-sm font-bold text-slate-400 block">Jun 2022 - Fev 2023</span>
-                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded">Joinville</span>
+                 <div class="relative md:grid md:grid-cols-5 md:gap-8 group print:block print:mb-6">
+                    <div class="md:col-span-1 hidden md:block text-right pt-2 print:text-left print:mb-2">
+                        <span class="text-sm font-bold text-slate-400 block print:text-slate-600">Jun 2022 - Fev 2023</span>
+                        <span class="text-xs text-slate-500 font-medium bg-dark-800 border border-dark-700 px-2 py-1 rounded print:bg-white print:border-slate-300">Joinville</span>
                     </div>
-                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors"></div>
+                    <div class="absolute -left-[4px] md:left-[19.6%] top-3 w-4 h-4 bg-dark-700 group-hover:bg-brand-accent rounded-full border-4 border-dark-900 shadow-md z-10 transition-colors no-print"></div>
                     
-                    <div class="md:col-span-4 pl-6 md:pl-8">
-                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all">
-                             <div class="md:hidden mb-2 text-sm text-brand-accent font-bold">Jun 2022 - Fev 2023 • Youcom</div>
-                            <h3 class="text-xl font-bold text-white">Consultora de Vendas</h3>
-                            <h4 class="text-brand-accent font-medium mb-4">Youcom</h4>
-                            <p class="text-slate-400">Desenvolvimento de Customer Experience, negociação persuasiva e gestão eficiente de inventário e estoque.</p>
+                    <div class="md:col-span-4 pl-6 md:pl-8 print:pl-0">
+                        <div class="bg-dark-800 p-6 rounded-xl shadow-lg border border-dark-700 group-hover:border-slate-600 transition-all print:bg-white print:border-slate-200 print:shadow-none print:p-4">
+                             <div class="md:hidden mb-2 text-sm text-brand-accent font-bold print:text-teal-700">Jun 2022 - Fev 2023 • Youcom</div>
+                            <h3 class="text-xl font-bold text-white print:text-slate-800">Consultora de Vendas</h3>
+                            <h4 class="text-brand-accent font-medium mb-4 print:text-teal-700">Youcom</h4>
+                            <p class="text-slate-400 print:text-slate-700">Desenvolvimento de Customer Experience, negociação persuasiva e gestão eficiente de inventário e estoque.</p>
                         </div>
                     </div>
                 </div>
@@ -397,36 +488,36 @@
     </section>
 
     <!-- Formação Acadêmica -->
-    <section id="formacao" class="py-20 bg-dark-900 border-t border-dark-700">
+    <section id="formacao" class="py-20 bg-dark-900 border-t border-dark-700 print:bg-white print:py-10 print:border-t-0">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-display font-bold text-white mb-12 text-center">Formação Acadêmica</h2>
+            <h2 class="text-3xl font-display font-bold text-white mb-12 text-center print:text-slate-800 print:mb-6">Formação Acadêmica</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 print:block print:space-y-6">
                 <!-- Card 1 -->
-                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group">
+                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group print:bg-white print:border-slate-200 print:shadow-none print:p-4">
                     <div class="flex items-start justify-between">
                         <div>
-                            <div class="bg-blue-900/30 text-blue-400 border border-blue-900/50 font-bold text-xs px-2 py-1 rounded uppercase mb-3 inline-block">Engenharia</div>
-                            <h3 class="text-xl font-bold text-white group-hover:text-brand-accent transition-colors">Engenharia Mecânica</h3>
-                            <p class="text-slate-400 font-medium mt-1">Instituto Federal de Santa Catarina (IFSC)</p>
-                            <p class="text-sm text-slate-500 mt-2 mb-2 italic">Foco em Processos e Lógica</p>
+                            <div class="bg-blue-900/30 text-blue-400 border border-blue-900/50 font-bold text-xs px-2 py-1 rounded uppercase mb-3 inline-block print:bg-blue-50 print:text-blue-700 print:border-blue-200">Engenharia</div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-brand-accent transition-colors print:text-slate-800">Engenharia Mecânica</h3>
+                            <p class="text-slate-400 font-medium mt-1 print:text-slate-600">Instituto Federal de Santa Catarina (IFSC)</p>
+                            <p class="text-sm text-slate-500 mt-2 mb-2 italic print:text-slate-500">Foco em Processos e Lógica</p>
                             <p class="text-sm text-slate-500 mt-4"><i class="far fa-calendar-alt mr-2"></i>Jan 2017 - Jan 2020</p>
                         </div>
-                        <i class="fas fa-graduation-cap text-3xl text-slate-600 group-hover:text-brand-accent transition-colors"></i>
+                        <i class="fas fa-graduation-cap text-3xl text-slate-600 group-hover:text-brand-accent transition-colors print:text-slate-300"></i>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group">
+                <div class="p-8 rounded-2xl border border-dark-700 shadow-lg bg-dark-800 hover:bg-dark-800/80 hover:border-brand-accent/30 transition-all group print:bg-white print:border-slate-200 print:shadow-none print:p-4">
                     <div class="flex items-start justify-between">
                         <div>
-                            <div class="bg-teal-900/30 text-teal-400 border border-teal-900/50 font-bold text-xs px-2 py-1 rounded uppercase mb-3 inline-block">Tecnologia</div>
-                            <h3 class="text-xl font-bold text-white group-hover:text-brand-accent transition-colors">Análise de Dados</h3>
-                            <p class="text-slate-400 font-medium mt-1">PUC PR</p>
-                            <p class="text-sm text-slate-500 mt-2 mb-2 italic">Fundamentos de BI e Dados</p>
+                            <div class="bg-teal-900/30 text-teal-400 border border-teal-900/50 font-bold text-xs px-2 py-1 rounded uppercase mb-3 inline-block print:bg-teal-50 print:text-teal-700 print:border-teal-200">Tecnologia</div>
+                            <h3 class="text-xl font-bold text-white group-hover:text-brand-accent transition-colors print:text-slate-800">Análise de Dados</h3>
+                            <p class="text-slate-400 font-medium mt-1 print:text-slate-600">PUC PR</p>
+                            <p class="text-sm text-slate-500 mt-2 mb-2 italic print:text-slate-500">Fundamentos de BI e Dados</p>
                             <p class="text-sm text-slate-500 mt-4"><i class="far fa-calendar-alt mr-2"></i>Jan 2024 - Jan 2025</p>
                         </div>
-                        <i class="fas fa-chart-pie text-3xl text-slate-600 group-hover:text-brand-accent transition-colors"></i>
+                        <i class="fas fa-chart-pie text-3xl text-slate-600 group-hover:text-brand-accent transition-colors print:text-slate-300"></i>
                     </div>
                 </div>
             </div>
@@ -434,38 +525,38 @@
     </section>
 
     <!-- Footer / Contato -->
-    <footer id="contato" class="bg-dark-950 text-slate-300 py-16 border-t border-dark-700">
+    <footer id="contato" class="bg-dark-950 text-slate-300 py-16 border-t border-dark-700 print:bg-white print:text-black print:border-none print:py-8">
         <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-3xl font-display font-bold text-white mb-6">Vamos Conversar?</h2>
-            <p class="text-lg text-slate-400 mb-10">Estou disponível para entrevistas e novas oportunidades na área de TI e Administrativa.</p>
+            <h2 class="text-3xl font-display font-bold text-white mb-6 print:text-slate-800">Vamos Conversar?</h2>
+            <p class="text-lg text-slate-400 mb-10 print:text-slate-600">Estou disponível para entrevistas e novas oportunidades na área de TI e Administrativa.</p>
             
-            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12">
-                <a href="mailto:carolinasteffn98@gmail.com" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent">
-                    <i class="fas fa-envelope text-brand-accent"></i>
+            <div class="flex flex-col md:flex-row justify-center gap-6 mb-12 print:flex-col print:gap-4">
+                <a href="mailto:carolinasteffn98@gmail.com" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent print:bg-white print:border-slate-300 print:text-black print:justify-start">
+                    <i class="fas fa-envelope text-brand-accent print:text-teal-700"></i>
                     <div class="text-left">
-                        <span class="block text-xs text-slate-400">Email</span>
+                        <span class="block text-xs text-slate-400 print:text-slate-500">Email</span>
                         <span class="font-bold">carolinasteffn98@gmail.com</span>
                     </div>
                 </a>
                 
-                <a href="tel:47997786959" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent">
-                    <i class="fas fa-phone text-brand-accent"></i>
+                <a href="https://wa.me/5547997786959" target="_blank" class="flex items-center justify-center gap-3 bg-dark-800 hover:bg-dark-700 text-white px-6 py-4 rounded-xl transition-all border border-dark-700 hover:border-brand-accent print:bg-white print:border-slate-300 print:text-black print:justify-start">
+                    <i class="fas fa-phone text-brand-accent print:text-teal-700"></i>
                     <div class="text-left">
-                        <span class="block text-xs text-slate-400">Telefone / WhatsApp</span>
+                        <span class="block text-xs text-slate-400 print:text-slate-500">Telefone / WhatsApp</span>
                         <span class="font-bold">(47) 99778-6959</span>
                     </div>
                 </a>
                 
-                <div class="flex items-center justify-center gap-3 bg-dark-800 text-white px-6 py-4 rounded-xl border border-dark-700 cursor-default">
-                    <i class="fas fa-map-marker-alt text-brand-accent"></i>
+                <div class="flex items-center justify-center gap-3 bg-dark-800 text-white px-6 py-4 rounded-xl border border-dark-700 cursor-default print:bg-white print:border-slate-300 print:text-black print:justify-start">
+                    <i class="fas fa-map-marker-alt text-brand-accent print:text-teal-700"></i>
                     <div class="text-left">
-                        <span class="block text-xs text-slate-400">Localização</span>
+                        <span class="block text-xs text-slate-400 print:text-slate-500">Localização</span>
                         <span class="font-bold">Joinville, SC</span>
                     </div>
                 </div>
             </div>
 
-            <div class="border-t border-dark-700 pt-8 flex flex-col justify-center items-center gap-4">
+            <div class="border-t border-dark-700 pt-8 flex flex-col justify-center items-center gap-4 print:border-slate-300">
                 <p class="text-sm text-slate-500">© 2026 Carolina Steffany Soares. Todos os direitos reservados.</p>
             </div>
         </div>
